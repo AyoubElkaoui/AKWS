@@ -3,9 +3,6 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  experimental: {
-    appDir: true, // Zorg ervoor dat dit is ingeschakeld
-  },
   images: {
     domains: ["localhost"],
     remotePatterns: [
@@ -17,5 +14,6 @@ const nextConfig = {
     ],
   },
 };
+
 
 module.exports = nextConfig;

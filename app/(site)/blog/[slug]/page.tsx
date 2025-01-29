@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 type BlogProps = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 async function getBlogData(slug: string) {
@@ -37,7 +37,8 @@ async function getBlogData(slug: string) {
   return data;
 }
 
-export default async function BlogPage({ params }: BlogProps) {
+export default async function BlogPage(props: BlogProps) {
+  const params = await props.params;
   const blog = await getBlogData(params.slug);
 
   if (!blog) {
