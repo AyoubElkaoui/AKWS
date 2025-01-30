@@ -1,9 +1,10 @@
 import React from "react";
 import SectionHeader from "../Common/SectionHeader";
+import { getLatestBlogs } from "@/sanity/lib/api";
 import BlogItem from "./BlogItem";
-import BlogData from "./blogData";
 
-const Blog: React.FC = () => {
+const Blog = async () => {
+  const blogs = await getLatestBlogs();
   return (
     <section className="py-20 lg:py-25 xl:py-30">
       <div className="mx-auto max-w-c-1315 px-4 md:px-8 xl:px-0">
@@ -22,9 +23,20 @@ const Blog: React.FC = () => {
 
       <div className="mx-auto mt-15 max-w-c-1280 px-4 md:px-8 xl:mt-20 xl:px-0">
         <div className="grid grid-cols-1 gap-7.5 md:grid-cols-2 lg:grid-cols-3 xl:gap-10">
-          {BlogData.slice(0, 3).map((blog) => (
-            <BlogItem blog={blog} key={blog._id} />
-          ))}
+          {blogs.map((blog) => {
+            let summary = "Geen samenvatting beschikbaar.";
+            if (Array.isArray(blog.body) && blog.body.length > 0) {
+              const firstBlock = blog.body.find((block) => block._type === "block");
+              if (firstBlock && firstBlock.children) {
+                summary = firstBlock.children
+                  .map((child) => (child._type === "span" ? child.text : ""))
+                  .join(" ")
+                  .slice(0, 150) + "...";
+              }
+            }
+
+            return <BlogItem blog={blog} key={blog._id} summary={summary} />;
+          })}
         </div>
       </div>
     </section>

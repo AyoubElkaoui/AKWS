@@ -6,6 +6,7 @@ import Image from "next/image";
 import RelatedPost from "@/components/Blog/RelatedPost";
 import SharePost from "@/components/Blog/SharePost";
 import { Metadata } from "next";
+import Link from "next/link";
 
 
 export const metadata: Metadata = {
@@ -24,7 +25,8 @@ async function getBlogData(slug: string) {
     mainImage,
     body,
     categories[]->{
-      title
+      title,
+      slug
     },
     author->{
       name,
@@ -32,6 +34,7 @@ async function getBlogData(slug: string) {
     },
     publishedAt
   }`;
+
 
   const data = await client.fetch(query, { slug });
   return data;
@@ -46,33 +49,51 @@ export default async function BlogPage(props: BlogProps) {
   }
 
   return (
-    <section className="pb-20 pt-35 lg:pb-25 lg:pt-45 xl:pb-30 xl:pt-50 bg-white dark:bg-blacksection">
+    <section className="bg-white pb-20 pt-35 dark:bg-blacksection lg:pb-25 lg:pt-45 xl:pb-30 xl:pt-50">
       <div className="mx-auto max-w-c-1390 px-4 md:px-8 2xl:px-0">
         <div className="flex flex-col-reverse gap-7.5 lg:flex-row xl:gap-12.5">
           {/* Sidebar met categorieën */}
           <div className="md:w-1/2 lg:w-[32%]">
-            <div className="animate_top mb-10 rounded-lg border border-stroke dark:border-strokedark bg-white dark:bg-blacksection p-9 shadow-solid-13">
+            <div className="animate_top mb-10 rounded-lg border border-stroke bg-white p-9 shadow-solid-13 dark:border-strokedark dark:bg-blacksection">
               <h4 className="mb-7.5 text-2xl font-bold text-black dark:text-white">
                 Categorieën
               </h4>
               <ul>
-                {blog.categories?.map((category: any, index: number) => (
-                  <li
-                    key={index}
-                    className="mb-3 text-gray-600 dark:text-gray-400 transition-all duration-300 last:mb-0 hover:text-primary dark:hover:text-primarylight"
-                  >
-                    {category.title}
+                {blog.categories?.length > 0 ? (
+                  blog.categories.map((category, index) => (
+                    <li
+                      key={index}
+                      className="mb-3 text-gray-600 dark:text-gray-400"
+                    >
+                      {category?.slug?.current ? (
+                        <Link
+                          href={`/categorie/${category.slug.current}`}
+                          className="hover:text-primary"
+                        >
+                          {category.title}
+                        </Link>
+                      ) : (
+                        <span>{category.title}</span>
+                      )}
+                    </li>
+                  ))
+                ) : (
+                  <li className="text-gray-500">
+                    Geen categorieën beschikbaar
                   </li>
-                ))}
+                )}
               </ul>
             </div>
 
-            <RelatedPost />
+            <RelatedPost
+              categories={blog.categories?.map((c) => c?.slug?.current).filter(Boolean) || []}
+              currentSlug={params.slug}
+            />
           </div>
 
           {/* Blog Content */}
           <div className="lg:w-2/3">
-            <div className="rounded-lg border border-border dark:border-strokedark bg-white dark:bg-blacksection p-7.5 shadow-solid-10">
+            <div className="border-border rounded-lg border bg-white p-7.5 shadow-solid-10 dark:border-strokedark dark:bg-blacksection">
               <div className="mb-10">
                 {blog.mainImage && (
                   <Image
@@ -89,7 +110,10 @@ export default async function BlogPage(props: BlogProps) {
                 {blog.title}
               </h1>
               <div className="mb-5 text-sm text-gray-600 dark:text-gray-400">
-                <p>Gepubliceerd op: {new Date(blog.publishedAt).toLocaleDateString()}</p>
+                <p>
+                  Gepubliceerd op:{" "}
+                  {new Date(blog.publishedAt).toLocaleDateString()}
+                </p>
                 {blog.author?.name && <p>Auteur: {blog.author.name}</p>}
               </div>
 
@@ -146,8 +170,12 @@ export default async function BlogPage(props: BlogProps) {
                         <a
                           href={value?.href}
                           target={value?.openInNewTab ? "_blank" : "_self"}
-                          rel={value?.openInNewTab ? "noopener noreferrer" : undefined}
-                          className="underline text-primary dark:text-primarylight"
+                          rel={
+                            value?.openInNewTab
+                              ? "noopener noreferrer"
+                              : undefined
+                          }
+                          className="dark:text-primarylight text-primary underline"
                         >
                           {children}
                         </a>
@@ -173,13 +201,13 @@ export default async function BlogPage(props: BlogProps) {
                 />
               </div>
 
-              <div
-                className="mt-10 rounded-lg border border-border dark:border-darkborder bg-primary-light dark:bg-primarydark p-5">
+              <div className="border-border dark:border-darkborder bg-primary-light dark:bg-primarydark mt-10 rounded-lg border p-5">
                 <h2 className="text-lg font-bold text-black dark:text-white">
                   Mis geen enkele update!
                 </h2>
                 <p className="text-gray-600 dark:text-gray-300">
-                  Schrijf je in voor onze nieuwsbrief om op de hoogte te blijven.
+                  Schrijf je in voor onze nieuwsbrief om op de hoogte te
+                  blijven.
                 </p>
                 <form action="#">
                   <div className="relative pt-3">
@@ -201,9 +229,7 @@ export default async function BlogPage(props: BlogProps) {
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <g clipPath="url(#clip0_48_1487)">
-                          <path
-                            d="M3.1175 1.17318L18.5025 9.63484C18.5678 9.67081 18.6223 9.72365 18.6602 9.78786C18.6982 9.85206 18.7182 9.92527 18.7182 9.99984C18.7182 10.0744 18.6982 10.1476 18.6602 10.2118C18.6223 10.276 18.5678 10.3289 18.5025 10.3648L3.1175 18.8265C3.05406 18.8614 2.98262 18.8792 2.91023 18.8781C2.83783 18.8769 2.76698 18.857 2.70465 18.8201C2.64232 18.7833 2.59066 18.7308 2.55478 18.6679C2.51889 18.6051 2.50001 18.5339 2.5 18.4615V1.53818C2.50001 1.46577 2.51889 1.39462 2.55478 1.33174C2.59066 1.26885 2.64232 1.2164 2.70465 1.17956C2.76698 1.14272 2.83783 1.12275 2.91023 1.12163C2.98262 1.12051 3.05406 1.13828 3.1175 1.17318ZM4.16667 10.8332V16.3473L15.7083 9.99984L4.16667 3.65234V9.16651H8.33333V10.8332H4.16667Z"
-                          />
+                          <path d="M3.1175 1.17318L18.5025 9.63484C18.5678 9.67081 18.6223 9.72365 18.6602 9.78786C18.6982 9.85206 18.7182 9.92527 18.7182 9.99984C18.7182 10.0744 18.6982 10.1476 18.6602 10.2118C18.6223 10.276 18.5678 10.3289 18.5025 10.3648L3.1175 18.8265C3.05406 18.8614 2.98262 18.8792 2.91023 18.8781C2.83783 18.8769 2.76698 18.857 2.70465 18.8201C2.64232 18.7833 2.59066 18.7308 2.55478 18.6679C2.51889 18.6051 2.50001 18.5339 2.5 18.4615V1.53818C2.50001 1.46577 2.51889 1.39462 2.55478 1.33174C2.59066 1.26885 2.64232 1.2164 2.70465 1.17956C2.76698 1.14272 2.83783 1.12275 2.91023 1.12163C2.98262 1.12051 3.05406 1.13828 3.1175 1.17318ZM4.16667 10.8332V16.3473L15.7083 9.99984L4.16667 3.65234V9.16651H8.33333V10.8332H4.16667Z" />
                         </g>
                       </svg>
                     </button>
@@ -211,7 +237,7 @@ export default async function BlogPage(props: BlogProps) {
                 </form>
               </div>
 
-              <SharePost />
+              <SharePost slug={params.slug} categories={blog.categories} />
             </div>
           </div>
         </div>
