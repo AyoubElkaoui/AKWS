@@ -1,8 +1,10 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Contact = () => {
   const [hasMounted, setHasMounted] = useState(false);
@@ -12,12 +14,11 @@ const Contact = () => {
   const [phoneError, setPhoneError] = useState("");
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setHasMounted(true);
   }, []);
 
-
-  const validateEmail = (email) => {
+  const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setEmailError("Dit is geen geldig e-mailadres.");
@@ -26,7 +27,7 @@ const Contact = () => {
     }
   };
 
-  const validatePhone = (phone) => {
+  const validatePhone = (phone: string) => {
     const phoneRegex = /^[0-9]{10,15}$/;
     if (!phoneRegex.test(phone)) {
       setPhoneError("Voer een geldig telefoonnummer in (alleen cijfers).");
@@ -39,51 +40,74 @@ const Contact = () => {
     return null;
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (emailError || phoneError) {
-      alert("Corrigeer de fouten voordat je het formulier verzendt.");
+      toast.error("Corrigeer de fouten voordat je het formulier verzendt.");
       return;
     }
 
     if (!recaptchaValue) {
-      alert("Vul de reCAPTCHA in.");
+      toast.error("Vul de reCAPTCHA in.");
       return;
     }
 
+    // Haal de formuliervelden op
     const formData = {
-      name: e.target.elements.name.value,
+      name: (e.currentTarget.elements.namedItem("name") as HTMLInputElement).value,
       email,
       phone,
-      subject: e.target.elements.subject.value,
-      message: e.target.elements.message.value,
+      subject: (e.currentTarget.elements.namedItem("subject") as HTMLInputElement).value,
+      message: (e.currentTarget.elements.namedItem("message") as HTMLTextAreaElement).value,
       recaptchaValue,
     };
 
+    // Toon een loading toast en sla de ID op
+    const toastId = toast.loading("Verzenden...");
+
     try {
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
+      const response = await fetch("/api/send-email", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
 
       const result = await response.json();
+
       if (response.ok) {
-        alert(result.message);
+        toast.update(toastId, {
+          render: result.message,
+          type: "success",
+          isLoading: false,
+          autoClose: 3000,
+        });
       } else {
-        alert(result.message);
+        toast.update(toastId, {
+          render: result.message,
+          type: "error",
+          isLoading: false,
+          autoClose: 3000,
+        });
       }
     } catch (error) {
       console.error(error);
-      alert('Er is een fout opgetreden bij het verzenden van het formulier.');
+      toast.update(toastId, {
+        render: "Er is een fout opgetreden bij het verzenden van het formulier.",
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
     }
   };
 
   return (
     <>
+      {/* De ToastContainer zorgt ervoor dat de meldingen op de juiste plek getoond worden */}
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
+
       <section id="contact" className="px-4 md:px-8 2xl:px-0">
         <div className="relative mx-auto max-w-c-1390 px-7.5 pt-10 lg:px-15 lg:pt-15 xl:px-20 xl:pt-20">
           <div className="absolute left-0 top-0 -z-1 h-2/3 w-full rounded-lg bg-gradient-to-t from-transparent to-[#dee7ff47] dark:bg-gradient-to-t dark:to-[#252A42]"></div>
@@ -189,6 +213,7 @@ const Contact = () => {
 
                 <div className="flex flex-wrap gap-4 xl:justify-between">
                   <button
+                    type="submit"
                     aria-label="Verstuur bericht"
                     className="inline-flex items-center gap-2.5 rounded-full bg-black px-6 py-3 font-medium text-white duration-300 ease-in-out hover:bg-blackho dark:bg-btndark"
                   >
@@ -203,7 +228,6 @@ const Contact = () => {
                     >
                       <path
                         d="M10.4767 6.16664L6.00668 1.69664L7.18501 0.518311L13.6667 6.99998L7.18501 13.4816L6.00668 12.3033L10.4767 7.83331H0.333344V6.16664H10.4767Z"
-                        fill=""
                       />
                     </svg>
                   </button>
@@ -226,13 +250,13 @@ const Contact = () => {
                 Neem contact op
               </h2>
 
-              <div className="5 mb-7">
+              <div className="mb-7">
                 <h3 className="mb-4 text-metatitle3 font-medium text-black dark:text-white">
                   Locatie
                 </h3>
                 <p>Baarn, Nederland</p>
               </div>
-              <div className="5 mb-7">
+              <div className="mb-7">
                 <h3 className="mb-4 text-metatitle3 font-medium text-black dark:text-white">
                   E-mailadres
                 </h3>
