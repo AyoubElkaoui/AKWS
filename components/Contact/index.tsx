@@ -106,7 +106,7 @@ const Contact = () => {
   return (
     <>
       {/* De ToastContainer zorgt ervoor dat de meldingen op de juiste plek getoond worden */}
-      <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar style={{ zIndex: 99999 }}/>
 
       <section id="contact" className="px-4 md:px-8 2xl:px-0">
         <div className="relative mx-auto max-w-c-1390 px-7.5 pt-10 lg:px-15 lg:pt-15 xl:px-20 xl:pt-20">
