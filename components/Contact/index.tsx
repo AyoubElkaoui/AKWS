@@ -16,6 +16,7 @@ const Contact = () => {
     setHasMounted(true);
   }, []);
 
+
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {

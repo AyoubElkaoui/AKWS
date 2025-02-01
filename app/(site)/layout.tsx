@@ -11,6 +11,7 @@ import "../globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 import ToasterContext from "../context/ToastContext";
+import Script from "next/script";
 
 export default function RootLayout({
                                      children,
@@ -19,6 +20,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="nl" suppressHydrationWarning>
+    <Script
+      src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
+      strategy="lazyOnload"
+    />
     <body className={`dark:bg-black ${inter.className}`}>
     <ThemeProvider
       enableSystem={false}

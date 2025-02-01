@@ -1,4 +1,4 @@
-// app/api/send-email/route.ts
+// app/api/recaptcha/route.ts
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
