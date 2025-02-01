@@ -110,7 +110,7 @@ const Card = ({
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.8 }}
-    className={`group relative flex flex-col justify-between rounded-lg border border-stroke bg-white p-7.5 shadow-solid-10 dark:border-strokedark dark:bg-blacksection dark:shadow-none md:w-[50%] lg:w-1/3 xl:p-12.5 h-full ${
+    className={`group relative flex flex-col justify-between rounded-lg border border-stroke bg-white p-7.5 shadow-solid-10 dark:border-strokedark dark:bg-blacksection dark:shadow-none md:w-[50%] lg:w-1/3 xl:p-12.5 flex-1 ${
       highlight ? "border-primary" : ""
     }`}
   >

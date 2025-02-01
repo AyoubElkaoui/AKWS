@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+
+html, body {
+  overflow-x: hidden; /* Voorkom horizontaal scrollen */
+  max-width: 100%; /* Zorg ervoor dat de body niet breder wordt dan de viewport */
+}
+
+/* Voeg dit toe om ervoor te zorgen dat alle elementen binnen de container blijven */
+.container {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Voeg dit toe om afbeeldingen en andere elementen binnen de container te houden */
+img, video, iframe {
+  max-width: 100%;
+  height: auto;
+}
+
 /* third-party libraries CSS */
 
 .testimonial-01 .swiper-pagination-bullet {
@@ -34,13 +52,6 @@
   }
 }
 
-.dark .dark:border-strokedark {
-  border-color: rgb(45, 47, 64) !important; /* Overrule andere classes */
-}
-
-.dark .dark:bg-blacksection {
-  background-color: rgb(28, 33, 54) !important; /* Overrule andere classes */
-}
 
 @media (max-width: 1280px) {
   .navbar {

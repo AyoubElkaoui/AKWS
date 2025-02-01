@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React, { useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const Contact = () => {
   const [hasMounted, setHasMounted] = useState(false);
@@ -9,6 +10,7 @@ const Contact = () => {
   const [phone, setPhone] = useState("");
   const [emailError, setEmailError] = useState("");
   const [phoneError, setPhoneError] = useState("");
+  const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
 
   React.useEffect(() => {
     setHasMounted(true);
@@ -35,6 +37,49 @@ const Contact = () => {
   if (!hasMounted) {
     return null;
   }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (emailError || phoneError) {
+      alert("Corrigeer de fouten voordat je het formulier verzendt.");
+      return;
+    }
+
+    if (!recaptchaValue) {
+      alert("Vul de reCAPTCHA in.");
+      return;
+    }
+
+    const formData = {
+      name: e.target.elements.name.value,
+      email,
+      phone,
+      subject: e.target.elements.subject.value,
+      message: e.target.elements.message.value,
+      recaptchaValue,
+    };
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        alert(result.message);
+      } else {
+        alert(result.message);
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Er is een fout opgetreden bij het verzenden van het formulier.');
+    }
+  };
 
   return (
     <>
@@ -72,10 +117,11 @@ const Contact = () => {
                 Stuur ons een bericht
               </h2>
 
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div className="mb-7.5 flex flex-col gap-7.5 lg:flex-row lg:justify-between lg:gap-14">
                   <input
                     type="text"
+                    name="name"
                     placeholder="Volledige naam"
                     className="w-full border-b border-stroke bg-transparent pb-3.5 focus:border-waterloo focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:focus:border-manatee dark:focus:placeholder:text-white lg:w-1/2"
                   />
@@ -83,6 +129,7 @@ const Contact = () => {
                   <div className="w-full lg:w-1/2">
                     <input
                       type="email"
+                      name="email"
                       placeholder="E-mailadres"
                       value={email}
                       onChange={(e) => {
@@ -100,6 +147,7 @@ const Contact = () => {
                 <div className="mb-12.5 flex flex-col gap-7.5 lg:flex-row lg:justify-between lg:gap-14">
                   <input
                     type="text"
+                    name="subject"
                     placeholder="Onderwerp"
                     className="w-full border-b border-stroke bg-transparent pb-3.5 focus:border-waterloo focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:focus:border-manatee dark:focus:placeholder:text-white lg:w-1/2"
                   />
@@ -107,6 +155,7 @@ const Contact = () => {
                   <div className="w-full lg:w-1/2">
                     <input
                       type="text"
+                      name="phone"
                       placeholder="Telefoonnummer"
                       value={phone}
                       onChange={(e) => {
@@ -124,9 +173,17 @@ const Contact = () => {
                 <div className="mb-11.5 flex">
                   <textarea
                     placeholder="Bericht"
+                    name="message"
                     rows={4}
                     className="w-full border-b border-stroke bg-transparent focus:border-waterloo focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:focus:border-manatee dark:focus:placeholder:text-white"
                   ></textarea>
+                </div>
+
+                <div className="mb-7.5">
+                  <ReCAPTCHA
+                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY} // Gebruik je Site Key
+                    onChange={(value) => setRecaptchaValue(value)}
+                  />
                 </div>
 
                 <div className="flex flex-wrap gap-4 xl:justify-between">
@@ -179,7 +236,9 @@ const Contact = () => {
                   E-mailadres
                 </h3>
                 <p>
-                  <a href="mailto:info@akwebsolutions.nl">info@akwebsolutions.nl</a>
+                  <a href="mailto:info@akwebsolutions.nl">
+                    info@akwebsolutions.nl
+                  </a>
                 </p>
               </div>
               <div>

@@ -4,7 +4,7 @@ import DienstenPricing from "@/components/DienstenPricing";
 import DienstInfo from "@/components/PackageDetails";
 import DienstenHero from "@/components/DienstenHero";
 import CTA from "@/components/DienstenCTA";
-import Contact from "@/components/Contact";
+import Contact from "@/components/DienstenContact";
 // import { Metadata } from "next";
 
 // export const metadata: Metadata = {
@@ -17,8 +17,8 @@ const DienstenPage = () => {
   return (
     <main>
       <DienstenHero />
-      <DienstenPricing />
-      <CTA />
+      {/*<DienstenPricing />*/}
+      {/*<CTA />*/}
       <DienstInfo />
       <Contact />
     </main>

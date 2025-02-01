@@ -142,6 +142,7 @@ const Header = () => {
                           ? "text-primary hover:text-primary"
                           : "hover:text-primary"
                       }
+                      onClick={() => setNavigationOpen(false)}
                     >
                       {menuItem.title}
                     </Link>

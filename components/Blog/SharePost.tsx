@@ -33,7 +33,7 @@ const SharePost = ({ slug, categories }: Props) => {
       </ul>
 
       {/* Categorieën als tags */}
-      <ul className="flex items-center gap-4">
+      <ul className="flex flex-wrap items-center gap-4">
         <li>
           <p className="text-black dark:text-white">Categorieën:</p>
         </li>
