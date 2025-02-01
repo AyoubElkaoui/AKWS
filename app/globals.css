@@ -20,6 +20,10 @@ img, video, iframe {
   height: auto;
 }
 
+iframe {
+  height: 77px;
+}
+
 /* third-party libraries CSS */
 
 .testimonial-01 .swiper-pagination-bullet {
