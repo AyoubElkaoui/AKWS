@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 const Hero = () => {
@@ -24,19 +25,21 @@ const Hero = () => {
                   AK Web Solutions
                 </span>
               </h1>
-              <p>
+              <p className="text-gray-700 dark:text-gray-300">
                 Op zoek naar een krachtige online aanwezigheid? Bij AK Web Solutions bouwen we op maat gemaakte websites,
                 bieden we snelle en veilige hosting, en verbeteren we jouw zichtbaarheid met doelgerichte SEO/SEA-strategieën.
                 Perfect voor ZZP'ers en kleine bedrijven die willen groeien.
               </p>
 
               <div className="mt-10">
+                <Link href="/contact">
                   <button
                     aria-label="get started button"
                     className="flex rounded-full bg-black px-7.5 py-2.5 text-white duration-300 ease-in-out hover:bg-blackho dark:bg-btndark dark:hover:bg-blackho"
                   >
                     Start vandaag nog met jouw online groei!
                   </button>
+                </Link>
               </div>
             </div>
 
