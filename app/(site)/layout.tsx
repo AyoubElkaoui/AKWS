@@ -12,6 +12,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 import ToasterContext from "../context/ToastContext";
 import Script from "next/script";
+import Head from "next/head";
 
 export default function RootLayout({
                                      children,
@@ -20,6 +21,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="nl" suppressHydrationWarning>
+    <Head>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-FN01ZESQ91"></script>
+
+    </Head>
     <Script
       src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
       strategy="lazyOnload"
@@ -37,6 +42,15 @@ export default function RootLayout({
       <Footer />
       <ScrollToTop />
     </ThemeProvider>
+    <Script id="gtag-init" strategy="afterInteractive">
+      {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-FN01ZESQ91');
+          `}
+    </Script>
     </body>
     </html>
   );
