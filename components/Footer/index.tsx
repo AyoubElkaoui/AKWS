@@ -114,17 +114,17 @@ const Footer = () => {
                   </h4>
                   <ul>
                     <li className="mb-3">
-                      <a href="#" className="hover:text-primary">
+                      <a href="privacy-beleid" className="hover:text-primary">
                         Privacybeleid
                       </a>
                     </li>
                     <li className="mb-3">
-                      <a href="#" className="hover:text-primary">
+                      <a href="/algemene-voorwaarden" className="hover:text-primary">
                         Algemene voorwaarden
                       </a>
                     </li>
                     <li>
-                      <a href="#" className="hover:text-primary">
+                      <a href="/veel-gestelde-vragen" className="hover:text-primary">
                         Veelgestelde vragen
                       </a>
                     </li>
