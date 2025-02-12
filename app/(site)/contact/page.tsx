@@ -4,7 +4,10 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Neem Contact Op - AK Web Solutions",
-  description: "Heb je vragen of wil je meer weten over onze diensten? Neem eenvoudig contact op via ons contactformulier.",
+  description:
+    "Heb je vragen of wil je meer weten over onze diensten? Neem eenvoudig contact op via ons contactformulier.",
+  keywords: "contact, vragen, diensten, AK Web Solutions, online contact",
+  robots: "index, follow",
   openGraph: {
     title: "Neem Contact Op - AK Web Solutions",
     description: "Vul ons contactformulier in en wij nemen snel contact met je op!",
@@ -18,6 +21,14 @@ export const metadata: Metadata = {
         alt: "Neem Contact Op - AK Web Solutions",
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Neem Contact Op - AK Web Solutions",
+    description:
+      "Heb je vragen of wil je meer weten over onze diensten? Neem eenvoudig contact op via ons contactformulier.",
+    images: ["/images/contact-og.jpg"],
+    site: "@akwebsolutions",
   },
 };
 

@@ -8,15 +8,9 @@ import SharePost from "@/components/Blog/SharePost";
 import { Metadata } from "next";
 import Link from "next/link";
 
-
-export const metadata: Metadata = {
-  title: "blog Page - Solid SaaS Boilerplate",
-  description: "This is Docs page for Solid Pro",
-  // other metadata
-};
-
+// Props definitie voor de slug
 type BlogProps = {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 };
 
 async function getBlogData(slug: string) {
@@ -35,17 +29,78 @@ async function getBlogData(slug: string) {
     publishedAt
   }`;
 
-
   const data = await client.fetch(query, { slug });
   return data;
 }
 
-export default async function BlogPage(props: BlogProps) {
-  const params = await props.params;
+// Dynamisch metadata genereren op basis van de bloginhoud
+export async function generateMetadata({
+                                         params,
+                                       }: BlogProps): Promise<Metadata> {
   const blog = await getBlogData(params.slug);
 
   if (!blog) {
-    return <p className="text-black dark:text-white">Blog niet gevonden</p>;
+    return {
+      title: "Blog niet gevonden - AK Web Solutions",
+      description: "Deze blog is niet beschikbaar.",
+    };
+  }
+
+  // Probeer een korte beschrijving uit de blogbody te genereren (max 160 tekens)
+  let description = "";
+  if (Array.isArray(blog.body) && blog.body.length > 0) {
+    const firstBlock = blog.body.find(
+      (block: any) => block._type === "block" && block.children
+    );
+    if (firstBlock) {
+      description = firstBlock.children
+        .map((child: any) => (child._type === "span" ? child.text : ""))
+        .join(" ")
+        .slice(0, 160);
+    }
+  }
+  if (!description) {
+    description = blog.title;
+  }
+
+  return {
+    title: `${blog.title} - AK Web Solutions`,
+    description,
+    keywords: ["blog", "webdesign", "AK Web Solutions", blog.title],
+    robots: "index, follow",
+    openGraph: {
+      title: `${blog.title} - AK Web Solutions`,
+      description,
+      url: `https://akwebsolutions.nl/blog/${params.slug}`,
+      type: "article",
+      images: blog.mainImage
+        ? [
+          {
+            url: urlFor(blog.mainImage).url(),
+            alt: blog.title,
+            width: 1200,
+            height: 630,
+          },
+        ]
+        : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${blog.title} - AK Web Solutions`,
+      description,
+      images: blog.mainImage ? [urlFor(blog.mainImage).url()] : [],
+      site: "@akwebsolutions",
+    },
+  };
+}
+
+export default async function BlogPage({ params }: BlogProps) {
+  const blog = await getBlogData(params.slug);
+
+  if (!blog) {
+    return (
+      <p className="text-black dark:text-white">Blog niet gevonden</p>
+    );
   }
 
   return (
@@ -60,7 +115,7 @@ export default async function BlogPage(props: BlogProps) {
               </h4>
               <ul>
                 {blog.categories?.length > 0 ? (
-                  blog.categories.map((category, index) => (
+                  blog.categories.map((category: any, index: number) => (
                     <li
                       key={index}
                       className="mb-3 text-gray-600 dark:text-gray-400"
@@ -86,7 +141,11 @@ export default async function BlogPage(props: BlogProps) {
             </div>
 
             <RelatedPost
-              categories={blog.categories?.map((c) => c?.slug?.current).filter(Boolean) || []}
+              categories={
+                blog.categories
+                  ?.map((c: any) => c?.slug?.current)
+                  .filter(Boolean) || []
+              }
               currentSlug={params.slug}
             />
           </div>
@@ -206,8 +265,7 @@ export default async function BlogPage(props: BlogProps) {
                   Mis geen enkele update!
                 </h2>
                 <p className="text-gray-600 dark:text-gray-300">
-                  Schrijf je in voor onze nieuwsbrief om op de hoogte te
-                  blijven.
+                  Schrijf je in voor onze nieuwsbrief om op de hoogte te blijven.
                 </p>
                 <form action="#">
                   <div className="relative pt-3">

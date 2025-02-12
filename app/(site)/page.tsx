@@ -14,9 +14,13 @@ import Blog from "@/components/Blog";
 import Testimonial from "@/components/Testimonial";
 
 export const metadata: Metadata = {
-  title: "Online Succes Start Hier- AK Web Solutions",
-  description: "AK Web Solutions",
-  // other metadata
+  title: "Online Succes Start Hier - AK Web Solutions",
+  description:
+    "AK Web Solutions levert professionele websites op maat. Laat jouw online succes starten met een conversiegerichte en SEO-geoptimaliseerde website.",
+  keywords:
+    "webdesign, professionele websites, maatwerk, SEO, online marketing, conversie, AK Web Solutions",
+  robots: "index, follow",
+  // Extra metadata kan hier toegevoegd worden indien nodig
 };
 
 export default function Home() {

@@ -7,14 +7,15 @@ import ScrollToTop from "@/components/ScrollToTop";
 import { ThemeProvider } from "next-themes";
 import { Inter } from "next/font/google";
 import "../globals.css";
-import { Analytics } from '@vercel/analytics/next';
-import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ subsets: ["latin"] });
 
 import ToasterContext from "../context/ToastContext";
 import Script from "next/script";
 import Head from "next/head";
+import CustomHead from "@/app/(site)/head";
 
 export default function RootLayout({
                                      children,
@@ -23,20 +24,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="nl" suppressHydrationWarning>
+    {/* CustomHead bevat al alle uitgebreide meta data */}
+    <CustomHead />
     <Head>
+      {/* Google Analytics / Tag Manager */}
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-FN01ZESQ91"></script>
-
     </Head>
     <Script
       src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
       strategy="lazyOnload"
     />
     <body className={`dark:bg-black ${inter.className}`}>
-    <ThemeProvider
-      enableSystem={false}
-      attribute="class"
-      defaultTheme="light"
-    >
+    <ThemeProvider enableSystem={false} attribute="class" defaultTheme="light">
       <Lines />
       <Header />
       <ToasterContext />
@@ -51,7 +50,6 @@ export default function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-
             gtag('config', 'G-FN01ZESQ91');
           `}
     </Script>
@@ -59,4 +57,3 @@ export default function RootLayout({
     </html>
   );
 }
-//
