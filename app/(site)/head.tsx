@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Script from "next/script";
 
 export default function CustomHead() {
   return (
@@ -14,8 +15,7 @@ export default function CustomHead() {
         name="keywords"
         content="webdesign, professionele websites, maatwerk, SEO, online oplossingen, conversie, webdevelopment, AK Web Solutions"
       />
-      <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="6e30a39b-9c3c-4e6f-aeba-e10349d4a6a6"
-              type="text/javascript" async></script>
+
       <meta name="robots" content="index, follow" />
       <meta name="author" content="AK Web Solutions" />
       <meta name="publisher" content="AK Web Solutions" />
@@ -107,6 +107,7 @@ export default function CustomHead() {
           })
         }}
       />
+
     </Head>
   );
 }
