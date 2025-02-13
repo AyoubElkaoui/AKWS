@@ -76,22 +76,22 @@ const Footer = () => {
                   </h4>
                   <ul>
                     <li className="mb-3">
-                      <a href="#" className="hover:text-primary">
+                      <a href="/" className="hover:text-primary">
                         Home
                       </a>
                     </li>
                     <li className="mb-3">
-                      <a href="#" className="hover:text-primary">
+                      <a href="/diensten" className="hover:text-primary">
                         Diensten
                       </a>
                     </li>
                     <li className="mb-3">
-                      <a href="#" className="hover:text-primary">
+                      <a href="/over-ons" className="hover:text-primary">
                         Over ons
                       </a>
                     </li>
                     <li>
-                      <a href="#" className="hover:text-primary">
+                      <a href="/contact" className="hover:text-primary">
                         Contact
                       </a>
                     </li>
