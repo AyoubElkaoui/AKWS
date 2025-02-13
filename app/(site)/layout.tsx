@@ -27,8 +27,11 @@ export default function RootLayout({
       src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
       strategy="lazyOnload"
     />
-    <Head>
-      {/* Cookiebot script */}
+    <body className={`dark:bg-black ${inter.className}`}>
+    {/* Verpak client-only onderdelen in ClientProviders */}
+    <ClientProviders>
+      <Lines />
+      <Header />
       <Script
         id="cookiebot"
         src="https://consent.cookiebot.com/uc.js"
@@ -37,12 +40,6 @@ export default function RootLayout({
         type="text/javascript"
         strategy="beforeInteractive"
       />
-    </Head>
-    <body className={`dark:bg-black ${inter.className}`}>
-    {/* Verpak client-only onderdelen in ClientProviders */}
-    <ClientProviders>
-      <Lines />
-      <Header />
       <GoogleTagManager />
       <Script async src="https://www.googletagmanager.com/gtag/js?id=G-FN01ZESQ91" />
       <Script id="gtag-init" strategy="afterInteractive">
