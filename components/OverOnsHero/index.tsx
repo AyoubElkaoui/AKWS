@@ -2,6 +2,13 @@
 import Image from "next/image";
 
 const Hero = () => {
+  // Scroll handler: zoekt het element met id "coreValues" en scrollt er naartoe.
+  const handleScroll = () => {
+    const element = document.getElementById("coreValues");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   return (
     <>
       <section className="overflow-hidden pb-20 pt-35 md:pt-40 xl:pb-25 xl:pt-46">
@@ -18,14 +25,22 @@ const Hero = () => {
                 </span>
               </h1>
               <p className="text-gray-700 dark:text-gray-300">
-                Bij AK Web Solutions geloven we in het leveren van hoogwaardige digitale oplossingen die bedrijven helpen groeien in een steeds veranderende wereld. Met een focus op innovatie, klantgerichtheid en kwaliteit, ondersteunen we bedrijven bij het bereiken van hun doelen.
+                Bij AK Web Solutions geloven we in het leveren van hoogwaardige
+                digitale oplossingen die bedrijven helpen groeien in een steeds
+                veranderende wereld. Met een focus op innovatie,
+                klantgerichtheid en kwaliteit, ondersteunen we bedrijven bij het
+                bereiken van hun doelen.
               </p>
               <p className="mt-4 text-gray-700 dark:text-gray-300">
-                Ons team van experts combineert technologie, strategie en creativiteit om op maat gemaakte oplossingen te bieden. Of het nu gaat om webontwikkeling, SEO/SEA of marketing, wij zetten ons in om jouw succes te verzekeren.
+                Ons team van experts combineert technologie, strategie en
+                creativiteit om op maat gemaakte oplossingen te bieden. Of het
+                nu gaat om webontwikkeling, SEO/SEA of marketing, wij zetten ons
+                in om jouw succes te verzekeren.
               </p>
 
               <div className="mt-10">
                 <button
+                  onClick={handleScroll}
                   aria-label="learn more button"
                   className="flex rounded-full bg-black px-7.5 py-2.5 text-white duration-300 ease-in-out hover:bg-blackho dark:bg-btndark dark:hover:bg-blackho"
                 >

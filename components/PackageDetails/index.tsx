@@ -11,7 +11,7 @@ const DienstenInfo = () => {
   const toggleBtw = () => setIncludeBtw(!includeBtw);
 
   return (
-    <section className="overflow-hidden pb-20 pt-15 text-gray-900 dark:text-gray-100 lg:pb-25 xl:pb-30">
+    <section id="dienstenInfo" className="overflow-hidden pb-20 pt-15 text-gray-900 dark:text-gray-100 lg:pb-25 xl:pb-30">
       <div className="mx-auto max-w-c-1390 space-y-20 px-4 md:px-8 2xl:px-0">
         {/* BTW Toggle */}
         <div className="mb-10 text-center">

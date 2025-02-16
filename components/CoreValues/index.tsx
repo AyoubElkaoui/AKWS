@@ -4,7 +4,7 @@ import { FaCheckCircle, FaShieldAlt, FaChartLine, FaHandsHelping } from "react-i
 
 export const CoreValuesFeature = () => {
   return (
-    <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+    <div id="coreValues" className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
       <div className="flex flex-col lg:flex-row items-center">
         <div className="max-w-xl lg:pr-16 mb-10 lg:mb-0 text-center lg:text-left">
           <h5 className="mb-6 text-3xl font-extrabold leading-none text-gray-900 dark:text-gray-100">

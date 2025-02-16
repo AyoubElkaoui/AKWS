@@ -1,3 +1,5 @@
+import Head from "next/head";
+import Script from "next/script";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Lines from "@/components/Lines";
@@ -6,8 +8,6 @@ import { Inter } from "next/font/google";
 import "../globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import Script from "next/script";
-import Head from "next/head";
 import CustomHead from "@/app/(site)/head";
 import ClientProviders from "./ClientProviders"; // Onze client component
 import GoogleTagManager from "@/components/GoogleTagManager";
@@ -21,27 +21,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="nl" suppressHydrationWarning>
-    {/* Server component met metadata */}
-    <CustomHead />
-    <Script
-      src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
-      strategy="lazyOnload"
-    />
-    <Script
-      id="cookiebot"
-      src="https://consent.cookiebot.com/uc.js"
-      data-cbid="6e30a39b-9c3c-4e6f-aeba-e10349d4a6a6"
-      data-blockingmode="auto"
-      type="text/javascript"
-      strategy="beforeInteractive"
+    <head>
+      <CustomHead />
+      <Script
+        src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
+        strategy="lazyOnload"
       />
-    <body className={`dark:bg-black ${inter.className}`}>
-    {/* Verpak client-only onderdelen in ClientProviders */}
-    <ClientProviders>
-      <Lines />
-      <Header />
-
-      <GoogleTagManager />
       <Script async src="https://www.googletagmanager.com/gtag/js?id=G-FN01ZESQ91" />
       <Script id="gtag-init" strategy="afterInteractive">
         {`
@@ -51,6 +36,12 @@ export default function RootLayout({
             gtag('config', 'G-FN01ZESQ91');
           `}
       </Script>
+    </head>
+    <body className={`dark:bg-black ${inter.className}`}>
+    <ClientProviders>
+      <Lines />
+      <Header />
+      <GoogleTagManager />
       {children}
       <Analytics />
       <SpeedInsights />
@@ -58,7 +49,6 @@ export default function RootLayout({
       <ScrollToTop />
     </ClientProviders>
     </body>
-
     </html>
   );
 }

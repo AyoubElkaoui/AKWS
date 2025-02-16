@@ -10,7 +10,7 @@ import Link from "next/link";
 
 // Props definitie voor de slug
 type BlogProps = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 async function getBlogData(slug: string) {
@@ -34,9 +34,8 @@ async function getBlogData(slug: string) {
 }
 
 // Dynamisch metadata genereren op basis van de bloginhoud
-export async function generateMetadata({
-                                         params,
-                                       }: BlogProps): Promise<Metadata> {
+export async function generateMetadata(props: BlogProps): Promise<Metadata> {
+  const params = await props.params;
   const blog = await getBlogData(params.slug);
 
   if (!blog) {
@@ -94,7 +93,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogPage({ params }: BlogProps) {
+export default async function BlogPage(props: BlogProps) {
+  const params = await props.params;
   const blog = await getBlogData(params.slug);
 
   if (!blog) {
