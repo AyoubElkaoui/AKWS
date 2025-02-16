@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -44,9 +45,7 @@ const Footer = () => {
                   />
                 </a>
 
-                <p className="mb-10 mt-5">
-                  Online Succes Start Hier.
-                </p>
+                <p className="mb-10 mt-5">Online Succes Start Hier.</p>
 
                 <p className="mb-1.5 text-sectiontitle uppercase tracking-[5px]">
                   Contact
@@ -57,6 +56,26 @@ const Footer = () => {
                 >
                   info@akwebsolutions.nl
                 </a>
+
+                {/* Social media links met react-icons */}
+                <div className="flex gap-4 mt-4">
+                  <a
+                    href="https://www.facebook.com/akwebsolutions"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Facebook"
+                  >
+                    <FaFacebookF size={24} className="text-black dark:text-white" />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/company/akwebsolutions"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn"
+                  >
+                    <FaLinkedinIn size={24} className="text-black dark:text-white" />
+                  </a>
+                </div>
               </motion.div>
 
               <div className="flex w-full flex-col gap-8 md:flex-row md:justify-between md:gap-6 lg:w-1/2 xl:w-7/12">
@@ -114,7 +133,7 @@ const Footer = () => {
                   </h4>
                   <ul>
                     <li className="mb-3">
-                      <a href="privacy-beleid" className="hover:text-primary">
+                      <a href="/privacy-beleid" className="hover:text-primary">
                         Privacybeleid
                       </a>
                     </li>
@@ -181,9 +200,10 @@ const Footer = () => {
             </div>
           </div>
           {/* Footer Bottom */}
-          <div
-            className="flex flex-col items-center justify-center border-t border-stroke py-7 dark:border-strokedark lg:flex-row lg:justify-between">
-            <p>&copy; {new Date().getFullYear()} AK Web Solutions. Alle rechten voorbehouden.</p>
+          <div className="flex flex-col items-center justify-center border-t border-stroke py-7 dark:border-strokedark lg:flex-row lg:justify-between">
+            <p>
+              &copy; {new Date().getFullYear()} AK Web Solutions. Alle rechten voorbehouden.
+            </p>
           </div>
         </div>
       </footer>

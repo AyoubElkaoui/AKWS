@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://akwebsolutions.nl/sitemap.xml
