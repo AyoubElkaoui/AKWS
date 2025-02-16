@@ -60,7 +60,7 @@ const Footer = () => {
                 {/* Social media links met react-icons */}
                 <div className="flex gap-4 mt-4">
                   <a
-                    href="https://www.facebook.com/akwebsolutions"
+                    href="https://www.facebook.com/share/165WZf2Aej/?mibextid=wwXIfr"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Facebook"
@@ -68,7 +68,7 @@ const Footer = () => {
                     <FaFacebookF size={24} className="text-black dark:text-white" />
                   </a>
                   <a
-                    href="https://www.linkedin.com/company/akwebsolutions"
+                    href="https://www.linkedin.com/company/ak-web-solutions-nl"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="LinkedIn"
