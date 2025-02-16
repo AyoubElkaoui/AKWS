@@ -1,11 +1,8 @@
-// "use client";
-
-import DienstenPricing from "@/components/DienstenPricing";
 import DienstInfo from "@/components/PackageDetails";
 import DienstenHero from "@/components/DienstenHero";
-import CTA from "@/components/DienstenCTA";
 import Contact from "@/components/DienstenContact";
 import { Metadata } from "next";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Diensten - AK Web Solutions",
@@ -19,11 +16,11 @@ export const metadata: Metadata = {
 const DienstenPage = () => {
   return (
     <main>
-      <DienstenHero />
-      {/*<DienstenPricing />*/}
-      {/*<CTA />*/}
-      <DienstInfo />
-      <Contact />
+      <Suspense fallback={<div>Loading...</div>}>
+        <DienstenHero />
+        <DienstInfo />
+        <Contact />
+      </Suspense>
     </main>
   );
 };

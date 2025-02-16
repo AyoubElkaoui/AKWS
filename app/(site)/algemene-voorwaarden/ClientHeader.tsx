@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import Image from "next/image";
 
 type AnimatedHeaderProps = {
@@ -10,6 +10,9 @@ type AnimatedHeaderProps = {
   ctaText?: string;
   ctaLink?: string;
 };
+
+const MotionDiv = motion.div as unknown as React.FC<React.HTMLAttributes<HTMLDivElement>>;
+
 
 export default function AnimatedHeader({
                                          smallText,

@@ -1,7 +1,7 @@
 
 import { Metadata } from "next";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { Step } from "@/components/Steps";
 import Contact from "@/components/Contact";
 import CTA from "@/components/DienstenCTA";

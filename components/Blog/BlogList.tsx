@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { urlFor } from "@/sanity/lib/image";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { PortableText } from "@portabletext/react";
 import SectionHeader from "../Common/SectionHeader";
 

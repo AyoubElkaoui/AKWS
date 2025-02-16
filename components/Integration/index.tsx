@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { FaHtml5, FaJs, FaNodeJs } from "react-icons/fa";
 import { RiNextjsFill } from "react-icons/ri";
 import { SiTypescript, SiWordpress, SiGoogleanalytics, SiTailwindcss, SiPhp, SiCss3} from "react-icons/si";

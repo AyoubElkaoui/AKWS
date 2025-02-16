@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -254,7 +254,10 @@ const Contact = () => {
                 <h3 className="mb-4 text-metatitle3 font-medium text-black dark:text-white">
                   Locatie
                 </h3>
-                <p>Baarn, Nederland</p>
+                <p>Leeuwerikweide 40
+                  3742XR
+                  Baarn
+                  Nederland</p>
               </div>
               <div className="mb-7">
                 <h3 className="mb-4 text-metatitle3 font-medium text-black dark:text-white">
@@ -271,7 +274,7 @@ const Contact = () => {
                   Telefoonnummer
                 </h4>
                 <p>
-                  <a href="tel:+31685722387">+31 6 85 72 23 87</a>
+                  <a href="tel:+316856283067">+31 6 85 62 83 06</a>
                 </p>
               </div>
             </motion.div>
