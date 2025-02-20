@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { client } from "@/sanity/lib/client";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://akwebsolutions.nl";
+  const baseUrl = "https://www.akwebsolutions.nl";
 
   // Statische pagina's (gebruik de paden die je op je site hebt)
   const staticPages = [
