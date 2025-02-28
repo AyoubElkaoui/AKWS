@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Script from "next/script";
 
 const Contact = () => {
   const [hasMounted, setHasMounted] = useState(false);
@@ -76,6 +77,17 @@ const Contact = () => {
       });
 
       const result = await response.json();
+      if (typeof window !== "undefined" && typeof window.gtag === "function") {
+        window.gtag("event", "conversion", {
+          send_to: "AW-8767612511/ZFBC7kpQbMaDPFx-e4",
+          value: 1.0,
+          currency: "EUR",
+        });
+        console.log("Google Ads conversie gemeten!"); // Debugging
+      } else {
+        console.error("gtag is niet beschikbaar!");
+      }
+
 
       if (response.ok) {
         toast.update(toastId, {

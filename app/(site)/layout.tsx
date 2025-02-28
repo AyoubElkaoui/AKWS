@@ -36,6 +36,15 @@ export default function RootLayout({
             gtag('config', 'G-FN01ZESQ91');
           `}
       </Script>
+      <Script id="google-ads" strategy="afterInteractive">
+        {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            window.gtag = function() { dataLayer.push(arguments); };
+            gtag('js', new Date());
+            gtag('config', 'AW-8767612511');
+          `}
+      </Script>
     </head>
     <body className={`dark:bg-black ${inter.className}`}>
     <ClientProviders>
