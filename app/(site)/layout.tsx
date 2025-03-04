@@ -11,6 +11,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import CustomHead from "@/app/(site)/head";
 import ClientProviders from "./ClientProviders"; // Onze client component
 import GoogleTagManager from "@/components/GoogleTagManager";
+import CookiebotWrapper from "@/components/CookiebotWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -50,6 +51,7 @@ export default function RootLayout({
     <ClientProviders>
       <Lines />
       <Header />
+      <CookiebotWrapper />
       <GoogleTagManager />
       {children}
       <Analytics />
